@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 
 export default function Counter() {
   const [counter, setCounter] = useState(0);
@@ -6,7 +6,13 @@ export default function Counter() {
   return (
     <div>
       Count: {counter}{" "}
-      <button onClick={() => setCounter(counter + 1)}>+1</button>
+      <button
+        onClick={() =>
+          import("./Counter-logic").then((v) => v.CountUp(setCounter, counter))
+        }
+      >
+        +1
+      </button>
     </div>
   );
 }
