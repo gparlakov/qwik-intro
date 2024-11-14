@@ -1,11 +1,20 @@
-import { useState  } from 'react'
+import { lazy, Suspense, useState } from "react";
 
 function App() {
-  const [counter, setCounter] = useState(0)
+  const [load, setLoad] = useState(false);
 
   return (
-    <div>Count: {counter} <button onClick={() => setCounter(counter + 1)}>+1</button></div>
+    <>
+      <button onClick={() => setLoad(true)}>Load</button>
+      {load && (
+        <Suspense>
+          <LazyCounter></LazyCounter>
+        </Suspense>
+      )}
+    </>
   );
 }
+
+const LazyCounter = lazy(() => import("./Counter"));
 
 export default App;
